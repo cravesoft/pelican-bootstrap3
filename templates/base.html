@@ -124,6 +124,15 @@
                         </li>
                     {% endfor %}
                 {% endif %}
+                {% for name, link in SOCIAL %}
+                    {% set name_sanitized = name|lower|replace('+','-plus')|replace(' ','-') %}
+                    {% if name_sanitized in ['flickr', 'spotify', 'stack-overflow'] %}
+                        {% set iconattributes = '"fa fa-' ~ name_sanitized ~ ' fa-lg"' %}
+                    {% else %}
+                        {% set iconattributes = '"fa fa-' ~ name_sanitized ~ '-square fa-lg"' %}
+                    {% endif %}
+                    <li><a href="{{ link }}"><i class={{ iconattributes }}></i> {{ name }}</a></li>
+                {% endfor %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
             {% if 'tipue_search' in PLUGINS %}
@@ -133,7 +142,9 @@
                 </form></span>
               </li>
             {% endif %}
-              <li><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+                <li><a href="{{ SITEURL }}/apps.html"><i class="fa fa-lg fa-laptop"></i><span class="icon-label">Apps</span></a></li>
+                <li><a href="{{ SITEURL }}/games.html"><i class="fa fa-lg fa-gamepad"></i><span class="icon-label">Games</span></a></li>
+                <li><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><i class="fa fa-lg fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
